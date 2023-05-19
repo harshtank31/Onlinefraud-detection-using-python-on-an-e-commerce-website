@@ -1,0 +1,47 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+
+{% for message in messages %}
+{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+{% endfor %}
+
+{% endif %}
+{%load static%}
+
+<div class="container" style="padding-top:20px;">
+    <div style="display:flex; justify-content: right;align-items: right;">
+        <a  class="btn btn-info" href="/Add_Product/">ADD PRODUCT</a>
+    </div>
+
+</div>
+
+
+<div class="container">
+    <div class="row">
+        {%for i in data%}
+
+            <div class="col-4"  style="border: solid 2px;background-color:rgba(255,253,208,0.7);border-radius: 5px;width: 30%;">
+                <br>
+                <img class="thumbnail" src="{{i.Product_Image.url}}" style="height:250px;width:370px;">
+                <div class="box-element product">
+                    <input type="text" name="id" value="{{i.id}}" hidden="">
+                    <h6><strong>{{i.Product_Name}}</strong></h6>
+                    <hr>
+                    <span><a class="btn btn-outline-success" href="/ViewProduct/{{i.id}}">View</a></span>
+                    {% if  request.session.type_id == 'Admin' %}
+                    <span> <a class="btn btn-outline-danger" href="/Delete_Product/{{i.id}}">Delete</a></span>
+                    {%endif%}
+                    <h4 style="display: inline-block; float: right"><strong>₹{{ i.Product_Price }}</strong></h4>
+                </div>
+                <br>
+            </div>
+                &nbsp;
+
+            {% endfor %}
+            &nbsp;
+    </div>
+</div>
+
+{%endblock%}

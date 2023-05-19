@@ -1,0 +1,45 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+
+{% for message in messages %}
+{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+{% endfor %}
+
+{% endif %}
+{%load static%}
+<div style="background-image:  url('/media/bg1.jpg'); background-repeat:no-repeat;background-size:cover;  height:650px; width:100%;">
+
+
+    <div class="container" style="padding-top:50px;">
+    	<table class="table table-warning table-hover table-stripped">
+    		<thead>
+    			<th>ID</th>
+    			<th>User_Id</th>
+    			<th>ip_address</th>
+    			<th>Country</th>
+    			<th>Spending</th>
+    			<th>Date</th>
+    			<th>Fraud</th>
+    		</thead>
+
+    		<tbody>
+    			{%for i in details%}
+    			<tr>
+    				<td>{{i.id}}</td>
+    				<td>{{i.User_Id}}</td>
+    				<td>{{i.ip_address}}</td>
+    				<td>{{i.Country}}</td>
+    				<td>{{i.Spending}}</td>
+    				<td>{{i.Date}}</td>
+    				<td>{{i.Fraud}}</td>
+    			</tr>
+    			{%endfor%}
+    		</tbody>
+    	</table>
+    </div>
+
+    
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+        <br>
+        <div class="container">
+            <table border="5px solid #000;" class="table table-dark table-hovers">
+                <tbody>
+     
+                    <thead>
+                        <tr>
+                            <th>UserID</th>
+                            <th>Prodcut ID</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Quantity</th>
+                           <!--  <th>Photo</th> -->
+                            <th colspan="2">Actions </th>
+                            
+                        </tr>
+     
+                    </thead>
+                <tbody>
+                    {% for i in details %}
+                    <tr>
+                        <td>{{i.uid}}</td>
+                        <td>{{i.prod_id}}</td>
+                        <td >{{i.Prod_name}}</td>
+                        <td>{{i.Initial_price }}</td>
+                        <td>{{i.Prod_price }}</td>
+                        <td >{{i.Prod_quantity}}</td>
+                        <!-- <td><img src="{{i.photo.url}}" style="height: 50px;width : 50%;"></td> -->
+                        <!-- <td ><a class="btn btn-primary" href="/edit/{{i.id}}">Edit</a></td> -->
+                        <td ><a class="btn btn-danger" href="/deletecart/{{i.id}}">Delete</a></td>
+                       
+                       
+                    </tr>
+                  
+                    {% endfor %}
+                   
+
+                </tbody>
+                </tbody>
+            </table>
+        </div>
+
+       <div class="row">
+               
+
+                <center>
+                    <div class="col-md-4">
+                        <div class="input-group input-group-lg">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Total</span>
+                        <input style="width:50%;" type="text" class="form-control" value="{{CartTotal}}">
+                        </div>
+                    </div>
+                </center>
+         </div>
+        <br>
+        <div class="row">
+               
+
+                <center>
+                    <div class="col-md-4">
+                        <a class="btn btn-warning" href="/Manage_Products/">Continue Shopping</a>
+                        {%if count != 0%}
+                        <a class="btn btn-success" href="/Checkout/">Checkout</a>
+                        {%endif%}
+                    </div>
+                </center>
+         </div>
+
+       <!--  <div>
+            <div class="d-grid gap-2 col-2 mx-auto">
+              <a class="btn btn-primary" href="/shop/">Continue Shopping</a>
+              <a class="btn btn-primary" href="/checkout/">Checkout</a>
+            </div>
+        </div> -->
+                   
+	{% endblock %}
+    

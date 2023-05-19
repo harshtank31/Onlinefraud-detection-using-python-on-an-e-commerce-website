@@ -1,0 +1,192 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+<style>
+    .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.box > div { /*The > denotes only the first or immediate child will be affected*/
+  width: 600px;
+  height: auto;
+  /*border: dotted;
+*/
+  background-color:  #0066b2;
+  border-radius: 5px
+}
+
+.box > div label{
+    color: white;
+}
+/*
+input[type=text] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 2px solid red;
+    }
+
+input[type=Password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 2px solid red;
+    }
+
+input[type=submit]{
+    box-shadow: inset 0 0 0 0 #54b3d6;
+  transition: color .3s ease-in-out, box-shadow .2s ease-in-out;
+}
+
+input[type=submit]:hover {
+  box-shadow: inset 100px 0 0 0 #54b3d6;
+  color: white;
+}*/
+
+</style>
+
+<div style="background-image:  url('/media/.jpg'); background-repeat:no-repeat;background-size:cover;  height:658px; width:100%;">
+    <div class="box">
+        <div class="shadow-lg p-3 mb-5 ">
+             <h3 style="color:white;">User Registeration</h3> 
+             <hr>
+            <form method="POST" action="/User_Registeration/" enctype="multipart/form-data" style="padding:25px;">
+                {% csrf_token %}
+              
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">Age</label>
+                        <input type="number" class="form-control" name="age" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="phone">Phone number:</label>
+                        <input class="form-control" type="tel" id="phone" name="phone" pattern="9\d{9}" required>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">Email</label>
+                        <input type="Email" class="form-control" name="email" required>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="mb-3 ">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" name="address" required>
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">Card Number</label>
+                        <input type="number" class="form-control" name="cardnum" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "16" required>
+                    </div>
+
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">CVV</label>
+                        <input type="password" name="cvv" class="form-control" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "3">
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    <div>
+                            <div class="form-field">
+                                <label>Expiry month / year</label>
+                            </div>
+                            <div class="form-field">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- <input type="text" class="form-control" name="month"> -->
+                                        <select class="form-select" aria-label="Default select example" name="month" required>
+                                          <option selected>Month</option>
+                                          <option value="01">01</option>
+                                          <option value="02">02</option>
+                                          <option value="03">03</option>
+                                          <option value="04">04</option>
+                                          <option value="05">05</option>
+                                          <option value="06">06</option>
+                                          <option value="07">07</option>
+                                          <option value="08">08</option>
+                                          <option value="09">09</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                        </select>
+                                    </div>
+                                     <div class="col">
+                                        <select class="form-select" aria-label="Default select example" name="year" required>
+                                          <option selected>Year</option>
+                                          <option value="01">2023</option>
+                                          <option value="02">2024</option>
+                                          <option value="03">2025</option>
+                                          <option value="04">2026</option>
+                                          <option value="05">2027</option>
+                                          <option value="06">2028</option>
+                                          <option value="07">2029</option>
+                                          <option value="08">2030</option>
+                                        </select> 
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">Enter Security Question</label>
+                        <input class="form-control" name="question" required>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">Enter Your Answer</label>
+                        <input type="text" class="form-control" name="answer" required>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" name="Username" required>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">Password</label>
+                        <input type="number" class="form-control" name="Password" required>
+                    </div>
+                </div>
+
+                <div class="row" style="display:flex;justify-content: center;align-items: center;">
+                    
+                        <input style="width:50%" type="submit" class="btn btn-secondary" name="">
+                    
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+    {% endblock %}

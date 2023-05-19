@@ -1,0 +1,56 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+
+{% for message in messages %}
+{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+{% endfor %}
+
+{% endif %}
+{%load static%}
+<div style="background-image:  url('/media/bg1.jpg'); background-repeat:no-repeat;background-size:cover;  height:650px; width:100%;">
+
+<br>
+<br>
+<br>
+    <div class="container" style="border: solid 2px;background-color:rgba(255,253,208,0.7);border-radius: 5px;width: 30%;">
+        <h1 style="border-bottom: solid 2px;">Add Product</h1>
+        <form method="POST" action="/Add_Product/"  enctype="multipart/form-data">
+            {%csrf_token%}
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label for="formGroupExampleInput" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="name">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="formGroupExampleInput" class="form-label">Product Price</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="price">
+            </div>
+        </div>
+        <div class="row">
+              <div class="col-md-12" >
+            
+                {% csrf_token %}
+                <p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
+                <p><label class="form-control" style="border:outset;cursor: pointer;" for="file" >Upload Image</label></p>
+                <p><img style="background-color: white;" name="image" id="output" height="200" width="200" /></p>
+                <input class="btn btn-primary" type="submit" name="Submit">
+               
+           
+            </div>
+        </div>
+        <br>
+         </form>
+    </div>
+
+    
+</div>
+
+<script>
+var loadFile = function(event) {
+    var image = document.getElementById('output');
+    image.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
+{% endblock %}

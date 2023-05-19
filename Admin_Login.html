@@ -1,0 +1,105 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+<style>
+    .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.box > div { /*The > denotes only the first or immediate child will be affected*/
+  width: 500px;
+  height: auto;
+  /*border: dotted;
+*/
+  background-color: #0066b2;
+  border-radius: 5px
+}
+
+.box > div label{
+    color: white;
+}
+/*
+input[type=text] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 2px solid red;
+    }
+
+input[type=Password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 2px solid red;
+    }
+
+input[type=submit]{
+    box-shadow: inset 0 0 0 0 #54b3d6;
+  transition: color .3s ease-in-out, box-shadow .2s ease-in-out;
+}
+
+input[type=submit]:hover {
+  box-shadow: inset 100px 0 0 0 #54b3d6;
+  color: white;
+}*/
+
+</style>
+
+<div style="background-image:  url('/media/.jpg'); background-repeat:no-repeat;background-size:cover;  height:658px; width:100%;">
+    <div class="box">
+        <div class="shadow-lg p-3 mb-5 ">
+             <h3 style="color: white;">Admin Login</h3> 
+             <hr>
+            <form method="POST" action="/Admin_Login/" enctype="multipart/form-data" style="padding:25px;">
+                {% csrf_token %}
+              <div class="row">
+                  <div class="col-md-12">
+                    <label for="validationCustomUsername" class="form-label">Username</label>
+                        <div class="input-group has-validation">
+                          <span class="input-group-text material-symbols-outlined" id="inputGroupPrepend">person</span>
+                          <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="aname" required>
+                          <div class="invalid-feedback">
+                            Please choose a username.
+                          </div>
+                        </div>
+                  </div>
+                  <div class="col-md-12">
+                    <label for="validationCustomUsername" class="form-label">Password</label>
+                        <div class="input-group has-validation">
+                          <span class="input-group-text material-symbols-outlined" id="inputGroupPrepend">password</span>
+                          <input type="password" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="apass" required>
+                          <div class="invalid-feedback">
+                            Please choose a username.
+                          </div>
+                        </div>
+                  </div>
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-md-12" style="display: flex;justify-content: center;">
+                      <input class="btn btn-secondary" type="submit" name="submit">
+                  </div>
+              </div>
+
+              <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+    {% endblock %}

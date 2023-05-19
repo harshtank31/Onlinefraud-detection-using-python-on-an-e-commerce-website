@@ -1,0 +1,43 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+
+{% for message in messages %}
+{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+{% endfor %}
+
+{% endif %}
+{%load static%}
+<div style="background-image:  url('/media/bg1.jpg'); background-repeat:no-repeat;background-size:cover;  height:650px; width:100%;">
+
+
+    <div class="container" style="padding-top:50px;">
+    	<table class="table table-warning table-hover table-stripped">
+    		<thead>
+    			<th>ID</th>
+    			<th>Name</th>
+    			<th>Age</th>
+    			<th>Country</th>
+    			<th>Action</th>
+    		</thead>
+
+    		<tbody>
+    			{%for i in details%}
+    			<tr>
+    				<td>{{i.id}}</td>
+    				<td>{{i.Name}}</td>
+    				<td>{{i.Age}}</td>
+    				<td>{{i.Country}}</td>
+    				<td>
+    					<a href="/viewTransactionAdmin/{{i.id}}" class="btn btn-warning">Show Transaction</a>
+    				</td>
+    			</tr>
+    			{%endfor%}
+    		</tbody>
+    	</table>
+    </div>
+
+    
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+	{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+
+
+<div style="background-image:  url('/media/.jpg'); background-repeat:no-repeat;background-size:cover;  height:687px; width:100%;">
+    <br>
+    <div class="container" style="border: solid 2px;background-color:rgba(255,253,208,0.7);border-radius: 5px;">
+        {%for i in details%}
+      <form action="/Cart/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class=" col-md-6" style="padding-top:20px;border-right: solid 2px;padding-bottom: 20px;">
+              <img style="border-radius: 2%" src="{{i.Product_Image.url}}">
+          </div>
+
+          <div class="col-md-6" style="padding-top:20px;padding-bottom: 20px;">
+            <div hidden>
+              <input type="text" name="Product_id" value="{{i.id}}">
+            </div>
+              <div class="row">
+                  <div class="col-md-6">
+                     <h1> Product Name </h1>
+                  </div>
+                  <div class="col-md-1">
+                      <h1>:</h1>
+                  </div>
+                  <div class="col-md-5">
+                      <h1>{{i.Product_Name}}</h1>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6">
+                     <h1> Product Price </h1>
+                  </div>
+                  <div class="col-md-1">
+                      <h1>:</h1>
+                  </div>
+                  <div class="col-md-5">
+                      <h1>{{i.Product_Price}} ₹</h1>
+                  </div>
+              </div>
+              <hr>
+              {% if  request.session.type_id  == 'User' %}
+               <div class="row"> 
+                <div class="col-md-4">
+                  <label for="form-label"><h4>Add Quantity</h4></label>
+                </div>
+
+                <div class="col-md-4">
+                  <select name="quantity" class="form-control form-select">
+                    <option selected value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <!-- <a class="btn btn-outline-success" href="/Cart_Products/">Order</a> -->
+                  <input class="btn btn-outline-success" type="submit" name="" value="Order">
+                </div>
+              </div>
+              {%endif%}
+          </div>
+      </div>
+      </form>
+        {%endfor%}
+    </div>
+    <br>
+    <br>
+</div>
+
+{%endblock%}

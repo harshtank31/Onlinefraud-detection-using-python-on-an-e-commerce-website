@@ -1,0 +1,159 @@
+{% extends 'base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+	<link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+
+    <div class="row container">
+    	<div class="col-lg-6">
+    		<div class="box-element" id="form-wrapper">
+    			<form action="/AddTransaction/" method="POST" id="form">
+    				{% csrf_token %} 
+    				
+    				{% for i in info %}
+    				<div id="user-info">
+    					<div class="form-field">
+    						<input required class="form-control" type="text" name="name" value="{{ i.Name }}" readonly>
+    					</div>
+
+    					<div class="form-field">
+    						<input required class="form-control" type="text" name="phonenumber" value="{{ i.Phone }}" readonly>
+    						
+    					</div>
+    				</div>
+    				{% endfor %}
+
+    				<div id="shipping-info">
+    					<hr>
+						<p>Shipping Information:</p>
+						<hr>
+						<div class="form-field">
+							<input class="form-control" type="text" name="address" placeholder="Address..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="city" placeholder="City..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="state" placeholder="State..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="country" placeholder="Country..">
+						</div>
+						<br>
+						<br>
+						<p>Card Details</p>
+						<hr>
+						<div class="form-field">
+							<input class="form-control" type="number" name="country" placeholder="Card Number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "16" required>
+						</div>
+
+						<div class="form-field">
+                        <input type="password" name="cvv" class="form-control" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "3" placeholder="CVV">
+						</div>
+
+						 <div class="row">
+                    <div>
+                            <div class="form-field">
+                                <label>Expiry month / year</label>
+                            </div>
+                            <div class="form-field">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- <input type="text" class="form-control" name="month"> -->
+                                        <select class="form-select" aria-label="Default select example" name="month" >
+                                          <option selected>Month</option>
+                                          <option value="01">01</option>
+                                          <option value="02">02</option>
+                                          <option value="03">03</option>
+                                          <option value="04">04</option>
+                                          <option value="05">05</option>
+                                          <option value="06">06</option>
+                                          <option value="07">07</option>
+                                          <option value="08">08</option>
+                                          <option value="09">09</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                        </select>
+                                    </div>
+                                     <div class="col">
+                                        <select class="form-select" aria-label="Default select example" name="year" >
+                                          <option selected>Year</option>
+                                          <option value="01">2023</option>
+                                          <option value="02">2024</option>
+                                          <option value="03">2025</option>
+                                          <option value="04">2026</option>
+                                          <option value="05">2027</option>
+                                          <option value="06">2028</option>
+                                          <option value="07">2029</option>
+                                          <option value="08">2030</option>
+                                        </select> 
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                </div>
+    					
+
+
+    				</div>
+
+    				<hr>
+
+    				<div hidden>
+    					<input type="text" name="total" value="{{CartTotal}}">
+    				</div>
+    				<input  class="btn btn-success" type="submit" value="Continue" style="width:100%;" >
+    			</form>
+
+    			
+    		</div>
+    		<br>
+
+    		<div class="box-element hidden" id="payment-info">
+    			<small>Paypal Options</small>
+    			
+    		</div>
+    	</div>
+
+
+
+    	<div class="col-lg-6">
+    		<div class="box-element">
+    			<a class="btn btn-outline-dark" href="{% url 'Cart'%}">&#x2190;Back to cart</a>
+    			<hr>
+    				<h3>Order Summary</h3>
+
+    			<hr>
+    			{% for i in details %}
+    			<div class="cart-row">
+					<!-- <div style="flex:2"><img class="row-image" src=""></div> -->
+					<div style="flex:2"><p>{{i.Prod_name}}&nbsp;</p></div>
+					<div style="flex:1"><p>{{i.Prod_price }}</p></div>
+					<div style="flex:1"><p>{{i.Prod_quantity}}</p></div>
+				</div>
+				{% endfor %}
+				
+				{% for i in quant%}
+
+				<h5>Items: {{i}}</h5>
+	            {% endfor %}
+				{% for i in carts%}
+				<h5 >Total: {{i}}</h5>
+    			{% endfor %}
+    		</div>
+    	</div>
+    </div>
+
+    {% endblock %}
